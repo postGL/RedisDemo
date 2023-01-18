@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -78,6 +79,31 @@ public class SpringDataRedisTest {
         for (Object value : values) {
             System.out.println(value);
         }
+    }
+
+    @Test
+    public void testSet() {
+        SetOperations setOperations = redisTemplate.opsForSet();
+
+        // 存值
+        setOperations.add("mySet", 22, 25, 26);
+
+        // 取值
+        Set<Integer> mySet = setOperations.members("mySet");
+        for (Integer i : mySet) {
+            System.out.println(i);
+        }
+
+        // 删除成员
+        Long mySet1 = setOperations.remove("mySet", 26);
+        System.out.println(mySet1);
+
+        // 取值
+        Set<Integer> mySet2 = setOperations.members("mySet");
+        for (Integer i : mySet2) {
+            System.out.println(i);
+        }
+
     }
 
 }
