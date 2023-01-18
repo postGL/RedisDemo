@@ -23,6 +23,14 @@ public class SpringDataRedisTest {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /**
+     * 关于Key“过期时间timeout”
+     * 如果用DEL, SET, GETSET会将key对应存储的值替换成新的，命令也会清除掉超时时间；
+     * 如果list结构中添加一个数据或者改变hset数据的一个字段是不会清除超时时间的；
+     * 如果想要通过set去覆盖值那就必须重新设置expire。
+     * 使用set重新设置一个有过期时间的key后，使用ttl命令查看key的过期时间，会发现过期时间又被重置为了-1，即永久不失效。
+     */
+
     @Test
     public void testString() {
         ValueOperations valueOperations = redisTemplate.opsForValue();
