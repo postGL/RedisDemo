@@ -4,10 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,6 +54,30 @@ public class SpringDataRedisTest {
         // setIfAbsent：如果没有就新增，如果有就替换
         Boolean result = valueOperations.setIfAbsent("city", "beijing");
         System.out.println(result);
+    }
+
+    @Test
+    public void testHash() {
+        HashOperations hashOperations = redisTemplate.opsForHash();
+        // 存值
+        hashOperations.put("002", "name", "xiaoming");
+        hashOperations.put("002", "age", "20");
+        hashOperations.put("002", "address", "bj");
+        // 取值
+        String name = (String) hashOperations.get("002", "name");
+        System.out.println(name);
+
+        // 获取hash结构中的所有key
+        Set keys = hashOperations.keys("002");
+        for (Object key : keys) {
+            System.out.println(key);
+        }
+
+        // 获取hash结构中的所有值
+        List values = hashOperations.values("002");
+        for (Object value : values) {
+            System.out.println(value);
+        }
     }
 
 }
