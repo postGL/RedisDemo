@@ -4,10 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -94,7 +91,7 @@ public class SpringDataRedisTest {
             System.out.println(i);
         }
 
-        // 删除成员
+        // 删除成员，返回值1或0
         Long mySet1 = setOperations.remove("mySet", 26);
         System.out.println(mySet1);
 
@@ -102,6 +99,44 @@ public class SpringDataRedisTest {
         Set<Integer> mySet2 = setOperations.members("mySet");
         for (Integer i : mySet2) {
             System.out.println(i);
+        }
+    }
+
+    /**
+     * Redis 有序集合和集合一样也是 string 类型元素的集合,且不允许重复的成员。
+     * 不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序。
+     * 有序集合的成员是唯一的,但分数(score)却可以重复。
+     * 集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。 集合中最大的成员数为 232 - 1 (4294967295, 每个集合可存储40多亿个成员)。
+     */
+    @Test
+    public void testZSet() {
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+
+        // 存值
+        zSetOperations.add("myZset", "oracle", 12);
+        zSetOperations.add("myZset", "mysql", 15);
+        zSetOperations.add("myZset", "sqlserver", 18);
+
+        // 按照index从小到大排序  1.key  2.从0开始 3.到-1  相对于输出全部
+        Set<String> myZset = zSetOperations.range("myZset", 0, -1);
+        for (String s : myZset) {
+            System.out.println(s);
+        }
+
+        // 修改分数
+        zSetOperations.incrementScore("myZset", "mysql",20);
+
+        Set<String> myZset2 = zSetOperations.range("myZset", 0, -1);
+        for (String s : myZset2) {
+            System.out.println(s);
+        }
+
+        // 删除成员
+        zSetOperations.remove("myZset","oracle","mysql");
+
+        Set<String> myZset3 = zSetOperations.range("myZset", 0, -1);
+        for (String s : myZset3) {
+            System.out.println(s);
         }
 
     }
