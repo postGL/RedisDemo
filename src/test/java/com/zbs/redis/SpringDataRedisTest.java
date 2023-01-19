@@ -79,6 +79,33 @@ public class SpringDataRedisTest {
     }
 
     @Test
+    public void testList() {
+        ListOperations listOperations = redisTemplate.opsForList();
+
+        // 存值(从左边插入值)
+        listOperations.leftPush("myList", "a");
+        listOperations.leftPushAll("myList", "b", "c", "d");
+
+        // 取值
+        List<String> myList = listOperations.range("myList", 0, -1);
+        for (String value : myList) {
+            System.out.println(value);
+        }
+
+        // 获取列表长度
+        Long size = listOperations.size("myList");
+        int lSize = size.intValue();
+        for (int i = 0; i < lSize - 1; i++) {
+            System.out.println("============");
+            String element = (String) listOperations.rightPop("myList");
+            System.out.println(element);
+        }
+
+        System.out.println("============");
+        System.out.println(myList);
+    }
+
+    @Test
     public void testSet() {
         SetOperations setOperations = redisTemplate.opsForSet();
 
@@ -124,7 +151,7 @@ public class SpringDataRedisTest {
         }
 
         // 修改分数
-        zSetOperations.incrementScore("myZset", "mysql",20);
+        zSetOperations.incrementScore("myZset", "mysql", 20);
 
         Set<String> myZset2 = zSetOperations.range("myZset", 0, -1);
         for (String s : myZset2) {
@@ -132,7 +159,7 @@ public class SpringDataRedisTest {
         }
 
         // 删除成员
-        zSetOperations.remove("myZset","oracle","mysql");
+        zSetOperations.remove("myZset", "oracle", "mysql");
 
         Set<String> myZset3 = zSetOperations.range("myZset", 0, -1);
         for (String s : myZset3) {
