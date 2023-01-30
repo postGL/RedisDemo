@@ -58,7 +58,7 @@ public class SpringDataRedisTest {
     public void testHash() {
         HashOperations hashOperations = redisTemplate.opsForHash();
         // 存值
-        hashOperations.put("002", "name", "xiaoming");
+        hashOperations.put("002", "name", "小明");
         hashOperations.put("002", "age", "20");
         hashOperations.put("002", "address", "bj");
         // 取值
