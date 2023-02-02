@@ -18,6 +18,11 @@ public class RedisConfig {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /**
+     * <beans xmlns...>
+     *     <bean id="init" 无返回值 scope="singleton">
+     * </beans>
+     */
     @Bean
     public void init() {
         RedisSerializer stringSerializer = new StringRedisSerializer();
