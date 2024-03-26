@@ -15,11 +15,14 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<dependencies>
+
+		<!-- 方式二：SpringDataRedis连接redis操作 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
+		<!-- 方式一：Jedis连接redis客户端 -->
 		<!--		<dependency>-->
 		<!--			<groupId>redis.clients</groupId>-->
 		<!--			<artifactId>jedis</artifactId>-->

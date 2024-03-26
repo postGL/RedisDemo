@@ -3,13 +3,13 @@
 //import redis.clients.jedis.Jedis;
 //
 ///**
-// * 使用Jedis连接Redis，进行操作
-// * description: RedisTest
+// * 方式一：使用Jedis连接Redis，进行操作
+// * description: JedisRedisTest
 // * date: 2023/1/17 14:39
 // * author: zhangbs
 // * version: 1.0
 // */
-//public class RedisTest {
+//public class JedisRedisTest {
 //    public static void main(String[] args) {
 //        // 连接本地的Redis服务
 //        Jedis jedis = new Jedis("127.0.0.1", 6379);
