@@ -87,22 +87,21 @@ public class SpringDataRedisTest {
         listOperations.leftPushAll("myList", "b", "c", "d");
 
         // 取值
-        List<String> myList = listOperations.range("myList", 0, -1);
+        List<String> myList = listOperations.range("myList", 0, 3);
         for (String value : myList) {
             System.out.println(value);
         }
+        System.out.println(myList);
 
         // 获取列表长度
         Long size = listOperations.size("myList");
         int lSize = size.intValue();
+        System.out.println("======打印每一个元素======");
         for (int i = 0; i < lSize - 1; i++) {
-            System.out.println("============");
             String element = (String) listOperations.rightPop("myList");
             System.out.println(element);
         }
 
-        System.out.println("============");
-        System.out.println(myList);
     }
 
     @Test
