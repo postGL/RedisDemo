@@ -9,6 +9,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * description: RedisConfig Redis配置类
+ * 结合SpringDataRedisTest使用
  * date: 2023/1/18 11:44
  * author: zhangbs
  * version: 1.0
@@ -21,7 +22,7 @@ public class RedisConfig {
 
     /**
      * <beans xmlns...>
-     *     <bean id="init" 无返回值 scope="singleton">
+     * <bean id="init" 无返回值 scope="singleton">
      * </beans>
      */
     @Bean
