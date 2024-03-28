@@ -7,6 +7,11 @@ spring:
     port: 6379
     # password: root
     database: 1 #操作的是1号数据库
+    timeout: 5000ms
+    # 设置键的序列化方式
+    #key-serializer: org.springframework.data.redis.serializer.StringRedisSerializer
+    # 设置值的序列化方式
+    #value-serializer: org.springframework.data.redis.serializer.StringRedisSerializer
     jedis:
       #Redis连接池配置
       pool:

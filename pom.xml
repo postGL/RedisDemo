@@ -16,18 +16,36 @@
 
 	<dependencies>
 
-		<!-- 方式二：SpringDataRedis连接redis操作 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
 		<!-- 方式一：Jedis连接redis客户端 -->
 		<!--		<dependency>-->
 		<!--			<groupId>redis.clients</groupId>-->
 		<!--			<artifactId>jedis</artifactId>-->
 		<!--			<version>3.2.0</version>-->
 		<!--		</dependency>-->
+
+		<!-- 方式二：SpringDataRedis连接redis操作 -->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+		<!--		</dependency>-->
+
+		<!--方式三：Redisson 同SpringDataRedis，基于spring.redis配置连接-->
+		<!-- -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.redisson</groupId>-->
+<!--			<artifactId>redisson</artifactId>-->
+<!--			<version>3.16.1</version>-->
+<!--		</dependency>-->
+		<!-- 这个才是真正的starter，结合和redisson和starter，额外增加RedissonAutoConfiguration -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<version>3.23.5</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
